@@ -7,18 +7,18 @@ const { protect } = require("./middlewares/authMiddleware");
 const cors = require("cors"); // Import the CORS package
 
 const app = express();
-app.use(
-  cors({
-    origin: "https://vaanshika.netlify.app/", // Allow requests from this origin
-    credentials: true, // Allow cookies to be sent
-  })
-);
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*"); // Allow all origins
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 // Connect to MongoDB
 connectDB();
 
 app.get("/", (req, res) => {
-  res.send("Testing Branch Works fine on reboot");
+  res.send("Testing Branch Works perfectly fine on reboot");
 });
 
 // Middleware
